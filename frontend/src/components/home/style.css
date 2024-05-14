@@ -1,0 +1,80 @@
+.home-section{
+    text-align: center;
+    padding-top: 20px;
+    background-color: lightblue;
+    height: 66vh;
+    /* clip-path: polygon(100% 0%, 100% 71%, 59% 83%, 0 100%, 0% 50%, 0 0); */
+}
+.home-section h2{
+    font-size: 37px;
+    height: 54px;
+    letter-spacing: 1px;
+    font-family: system-ui;
+    font-weight: bold;
+}
+.lottie{
+   
+}
+.home-section p{
+    font-size: 19px;
+    letter-spacing: 0.4px;
+    padding: 12px;
+    font-family: sans-serif;
+    font-weight: bold;
+    color: brown;
+}
+.center-section{
+    text-align: center;
+    display:flex;
+    align-items: center;
+    flex-direction: column;
+    gap: 15px;
+    padding-bottom: 20px;
+    background: bisque;
+    padding-top: 19px;
+    /* height: 60vh; */
+    /* background-color: purple; */
+    /* clip-path: polygon(100% 0%, 100% 100%, 60% 100%, 0 100%, 0 59%, 42% 33%); */
+
+}
+.center-section a{
+    text-decoration: none;
+    color: antiquewhite;
+    background: black;
+    padding: 8px;
+    width: 30vw;
+    border-radius: 9px;
+    font-size: 21px;
+    text-align: center;
+    cursor: pointer;
+    font-weight: bold;
+    font-family: system-ui;
+}
+.center-section h1{
+    font-size: 36px;
+    font-family: sans-serif;
+    font-weight: bolder;
+    margin-bottom: 18px;
+}
+.lottie{
+    width: 20%;
+}
+@media screen and (max-width:450px){
+    .home-section{
+        padding-top: 40px;
+        
+    }
+    .center-section a{
+        width: 89%;
+        font-size: 18px;
+    }
+    .center-section h1{
+        font-size: 32px;
+    }
+    .lottie{
+        width: 73%;
+    }
+    .home-section h2{
+        font-size: 29px;
+    }
+}

@@ -1,0 +1,63 @@
+/* Form Styles */
+.form-container {
+    max-width: 500px;
+    margin: 0 auto;
+    margin-top: 30px;
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+  }
+  .form-container h2{
+    padding: 20px;
+    font-family: sans-serif;
+  }
+  /* Input Field Styles */
+  .input-field {
+    margin-bottom: 15px;
+  }
+  
+  .input-field label {
+    display: block;
+    font-weight: bold;
+    margin-bottom: 5px;
+  }
+  
+  .input-field input,
+  .input-field select {
+    width: 100%;
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+  }
+  
+  /* File Input Styles */
+  .file-input {
+    margin-bottom: 15px;
+  }
+  
+  .file-input label {
+    display: block;
+    font-weight: bold;
+    margin-bottom: 5px;
+  }
+  
+  /* Submit Button Styles */
+  .submit-button {
+    text-align: center;
+  
+  }
+  
+  .submit-button button {
+    padding: 10px 20px;
+    background-color: #4caf50;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    width: 100%;
+
+  }
+  
+  .submit-button button:hover {
+    background-color: #45a049;
+  }
