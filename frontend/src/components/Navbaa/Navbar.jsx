@@ -1,13 +1,14 @@
 import React, { useState } from "react";
 import "./style.css";
 import { GiHamburgerMenu } from "react-icons/gi";
+import Logo from '../../assets/study2.webp';
 import {Link} from 'react-router-dom'
 const Navbar = () => {
     const [show,setShow] = useState(false);
   return (
     <nav className="navbar">
       <div className="nav-logo">
-        <img src="https://colleges-notes-websites.vercel.app/assets/study2.webp" alt="img" />
+        <img src={Logo} alt="img" />
         <div>StudentX</div>
       </div>
       <ul>

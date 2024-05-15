@@ -11,11 +11,11 @@ const app = express();
 const PORT = 5000;
 
 // Connect to MongoDB
-app.use(cors());
-// app.use(cors({
-//   origin:['https://colleges-notes-websites.vercel.app'],
-//   methods:["POST","GET"]
-// }));
+// app.use(cors());
+app.use(cors({
+  origin:['https://colleges-notes-websites.vercel.app'],
+  methods:["POST","GET"]
+}));
 app.use(express.json());
 try {
   
@@ -90,7 +90,7 @@ app.get('/get/item', async (req, res) => {
   
       const pdf = await PdfModel.find({category:category});
       
-    console.log(pdf)
+  
       if (pdf.length===0) {
         return res.status(404).send('PDF not found');
       }

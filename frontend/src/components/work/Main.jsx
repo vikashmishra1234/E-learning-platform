@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { getItem } from "../services/Api";
 import { MdOutlineDoNotDisturb } from "react-icons/md";
-
+import pdfImg from '../../assets/pdf.png'
 import "./style.css";
 import { Loader } from "../Loader";
 
@@ -97,7 +97,7 @@ const handleSort=(val)=>{
         {filteredData&&filteredData.map((item, index) => (
           <div key={index} className="card">
             <div className="badge">{item.category}</div>
-            <img src="https://colleges-notes-websites.vercel.app/assets/pdf.png" alt="img" />
+            <img src={pdfImg} alt="img" />
 
             <div className="card-body">
               <h2>{item.code}</h2>
