@@ -44,7 +44,7 @@ const Main = () => {
       const pdfDataPromises = pdf.map(async (item) => {
         setLoader(true)
         const response = await fetch(
-          `https://colleges-notes-websites.vercel.app/uploads/${item.name}`
+          `http://localhost:5173/uploads/${item.name}`
         );
      
         const data = await response.blob();
@@ -104,12 +104,12 @@ const handleSort=(val)=>{
               <p>{item.subjectName}</p>
 
               <a
-                href={URL.createObjectURL(item.data)}
-                download={`file_${index}.pdf`}
-                className="btn btn-primary"
-              >
-                Download
-              </a>
+  href={item.data && URL.createObjectURL(new Blob([item.data], { type: 'application/pdf' }))}
+  download={`file_${index}.pdf`}
+  className="btn btn-primary"
+>
+  Download
+</a>
             </div>
           </div>
         ))}

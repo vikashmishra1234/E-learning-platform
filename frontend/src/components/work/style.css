@@ -49,20 +49,20 @@ text-transform: uppercase;
     align-items: center;
     border: 1px solid;
     padding-top: 6px;
-   
+   max-width: 300px;
     border-radius: 17px;
 }
 .card img{
     width: 66%;
 }
 .card-body h2 {
-    font-size: 29px;
+    font-size: 25px;
     font-weight: bold;
     padding: 4px;
     font-family: system-ui;
 }
 .card-body p{
-    font-size: 23px;
+    font-size: 20px;
     padding: 2px;
 }
 .card-body a{
