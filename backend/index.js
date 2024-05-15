@@ -11,11 +11,11 @@ const app = express();
 const PORT = 5000;
 
 // Connect to MongoDB
-app.use(cors());
-// app.use(cors({
-//   origin:['https://colleges-notes-websites.vercel.app'],
-//   methods:["POST","GET"]
-// }));
+// app.use(cors());
+app.use(cors({
+  origin:['https://colleges-notes-websites.vercel.app'],
+  methods:["POST","GET"]
+}));
 app.use(express.json());
 try {
   
