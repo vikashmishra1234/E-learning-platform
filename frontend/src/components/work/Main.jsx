@@ -114,7 +114,7 @@ const handleSort=(val)=>{
           </div>
         ))}
       </section>
- {   active=='All'&&<div style={{margin:'auto',width:'fit-content',paddingTop:'10px'}}>
+ {/* {   active=='All'&&<div style={{margin:'auto',width:'fit-content',paddingTop:'10px'}}>
         <Link style={{
          borderRadius:'5px',
           fontSize:'22px',
@@ -125,7 +125,7 @@ const handleSort=(val)=>{
           textDecoration:'none',
           
         }} to={'/add/notes'}>AddNotes</Link>
-      </div>}
+      </div>} */}
     </div>
   );
 };
