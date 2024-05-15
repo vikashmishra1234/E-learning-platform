@@ -11,6 +11,10 @@
         {
             "src":"/work",
             "dest":"/"
+        },
+        {
+            "src":"/add/notes",
+            "dest":"/"
         }
       
         
