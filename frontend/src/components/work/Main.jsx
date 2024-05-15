@@ -105,7 +105,7 @@ const handleSort=(val)=>{
               <p>{item.subjectName}</p>
 
               <a
-  href={item.data && URL.createObjectURL(new Blob([item.data], { type: 'application/pdf' }))}
+  href={`https://colleges-notes-websites.onrender.com/pdf?fileName=${item.name}`}
   download={`file_${index}.pdf`}
   className="btn btn-primary"
 >

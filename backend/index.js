@@ -5,6 +5,7 @@ const fs = require('fs');
 const cors = require('cors');
 const { signUp, login, verifyToken } = require('./auth');
 const dotenv = require('dotenv');
+const { handlePdf } = require('./handlePdf');
 dotenv.config();
 
 const app = express();
@@ -56,6 +57,7 @@ const upload = multer({ storage });
 
 // Endpoint for file upload
 app.post('/signup',signUp);
+app.get('/pdf',handlePdf)
 app.post('/login',login);
 app.post('/add/item',verifyToken, upload.single('file'), async (req, res) => {
     try {
