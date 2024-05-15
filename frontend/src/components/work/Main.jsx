@@ -44,7 +44,7 @@ const Main = () => {
       const pdfDataPromises = pdf.map(async (item) => {
         setLoader(true)
         const response = await fetch(
-          `http://localhost:5173/uploads/${item.name}`
+          `https://colleges-notes-websites.vercel.app/uploads/${item.name}`
         );
      
         const data = await response.blob();
