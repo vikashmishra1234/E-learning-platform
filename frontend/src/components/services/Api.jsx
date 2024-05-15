@@ -1,7 +1,7 @@
 import axios from "axios"
 
-// const url = 'http://localhost:5000'
-const url = 'https://colleges-notes-websites.onrender.com';
+const url = 'http://localhost:5000'
+// const url = 'https://colleges-notes-websites.onrender.com';
 const config = {
     headers: {
         'Content-Type': 'multipart/form-data',
