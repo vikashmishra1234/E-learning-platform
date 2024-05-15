@@ -4,16 +4,27 @@ const multer = require('multer'); // For handling multipart/form-data
 const fs = require('fs');
 const cors = require('cors');
 const { signUp, login, verifyToken } = require('./auth');
+const dotenv = require('dotenv');
+dotenv.config();
 
 const app = express();
 const PORT = 5000;
 
 // Connect to MongoDB
-app.use(cors());
+app.use(cors({
+  origin:['https://colleges-notes-websites.vercel.app'],
+  methods:["POST","GET"]
+}));
 app.use(express.json());
-mongoose.connect('mongodb+srv://vikashmishra8371:raXxlY7Qxp9RITrb@cluster0.ouwkxt4.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0');
-const db = mongoose.connection;
-db.on('error', console.error.bind(console, 'MongoDB connection error:'));
+try {
+  
+  mongoose.connect(`${process.env.MONGO_URI}`);
+  const db = mongoose.connection;
+  db.on('error', console.error.bind(console, 'MongoDB connection error:'));
+  console.log("connected to database")
+} catch (error) {
+  console.log(error.message)
+}
 
 // Define schema for PDF files
 const pdfSchema = new mongoose.Schema({

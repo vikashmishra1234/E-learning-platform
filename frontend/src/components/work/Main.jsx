@@ -14,6 +14,7 @@ const Main = () => {
   const [active,setActive] = useState("All")
   const location = useLocation();
 
+  
   const getQuery = () => {
     const searchParams = new URLSearchParams(location.search);
     const queryParamValue = searchParams.get("q");
