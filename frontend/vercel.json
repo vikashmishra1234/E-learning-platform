@@ -13,6 +13,14 @@
             "dest":"/"
         },
         {
+            "src":"/uploads/",
+            "dest":"/"
+        },
+        {
+            "src":"/uploads",
+            "dest":"/"
+        },
+        {
             "src":"/add/notes",
             "dest":"/"
         }
