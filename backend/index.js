@@ -11,10 +11,11 @@ const app = express();
 const PORT = 5000;
 
 // Connect to MongoDB
-app.use(cors({
-  origin:['https://colleges-notes-websites.vercel.app'],
-  methods:["POST","GET"]
-}));
+app.use(cors());
+// app.use(cors({
+//   origin:['https://colleges-notes-websites.vercel.app'],
+//   methods:["POST","GET"]
+// }));
 app.use(express.json());
 try {
   
@@ -86,7 +87,7 @@ app.get('/get/item', async (req, res) => {
     try {
        
         const category = req.query.category;
-   console.log(category)
+  
       const pdf = await PdfModel.find({category:category});
       
     console.log(pdf)

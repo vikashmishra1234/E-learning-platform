@@ -1,12 +1,14 @@
-import React from 'react';
+import React, { useState } from 'react';
 import './style.css';
 import { signUp } from '../services/Api';
 import { useNavigate } from 'react-router-dom';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
+import { Loader } from '../Loader';
 
 const SignUpForm = ({ setShow }) => {
   const navigate = useNavigate();
+  const [loader,setLoader] = useState(false);
 
   // Yup validation schema
   const validationSchema = Yup.object({
@@ -34,7 +36,9 @@ const SignUpForm = ({ setShow }) => {
     },
     validationSchema,
     onSubmit: async (values) => {
+      setLoader(true)
       const res = await signUp(values);
+      setLoader(false)
       alert(res.message);
       localStorage.setItem('token', res.token);
       navigate('/add/notes');
@@ -43,6 +47,9 @@ const SignUpForm = ({ setShow }) => {
 console.log(formik)
   return (
     <div className="signup-form-container">
+      {
+        loader&&<Loader/>
+      }
       <h2>Student Sign Up</h2>
       <form onSubmit={formik.handleSubmit}>
         <div className="form-group">

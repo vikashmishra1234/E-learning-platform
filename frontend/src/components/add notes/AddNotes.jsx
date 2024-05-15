@@ -2,12 +2,14 @@ import React, { useEffect, useState } from "react";
 import { addItems } from "../services/Api";
 import { Navigate, useNavigate } from "react-router-dom";
 import './style.css'
+import { Loader } from "../Loader";
 const AddNotes = () => {
   const [code, setCode] = useState("");
   const [category, setCategory] = useState("");
   const [year, setYear] = useState();
   const [subjectName, setSubject] = useState();
   const [data, setData] = useState("");
+  const [loader,setLoader] = useState(false);
   const Navigate = useNavigate();
 
   useEffect(() => {
@@ -26,11 +28,16 @@ const AddNotes = () => {
     formData.append("category", category);
     formData.append("subjectName", subjectName);
     formData.append("year", year);
+    setLoader(true)
     const res = await addItems(formData);
+    setLoader(false);
     alert(res)
   };
   return (
     <form action="" onSubmit={handleSubmit} className="form-container">
+      {
+        loader&&<Loader/>
+      }
       <h2 style={{textAlign:'center'}}>Add Notes</h2>
       <div className="input-field">
         <label htmlFor="code">Subject Code</label>

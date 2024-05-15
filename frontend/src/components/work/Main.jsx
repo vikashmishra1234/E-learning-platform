@@ -4,6 +4,7 @@ import { getItem } from "../services/Api";
 import { MdOutlineDoNotDisturb } from "react-icons/md";
 
 import "./style.css";
+import { Loader } from "../Loader";
 
 const Main = () => {
   const [query, setQuery] = useState(null);
@@ -11,7 +12,9 @@ const Main = () => {
   const [pdfData, setPdfData] = useState([]);
   const [filteredData,setFilter] = useState(null);
   const [change,setChange] = useState(false);
-  const [active,setActive] = useState("All")
+  const [active,setActive] = useState("All");
+  const [loader,setLoader] = useState(false);
+  
   const location = useLocation();
 
   
@@ -22,7 +25,9 @@ const Main = () => {
   };
 
   const getData = async () => {
+    setLoader(true);
     const res = await getItem(query);
+    setLoader(false)
     if(res&&res.pdf){
 
       setPdf(res.pdf);
@@ -37,14 +42,18 @@ const Main = () => {
   useEffect(() => {
     const fetchPdfData = async () => {
       const pdfDataPromises = pdf.map(async (item) => {
+        setLoader(true)
         const response = await fetch(
-          `http://localhost:5173/uploads/${item.name}`
+          `https://colleges-notes-websites.vercel.app/uploads/${item.name}`
         );
+     
         const data = await response.blob();
+        setLoader(false)
         return { ...item, data };
       });
-
+      setLoader(true)
       const resolvedPdfData = await Promise.all(pdfDataPromises);
+      setLoader(false)
       setPdfData(resolvedPdfData);
     };
 
@@ -63,6 +72,9 @@ const handleSort=(val)=>{
 }
   return (
     <div style={{ paddingTop: "20px" }}>
+      {
+        loader&&<Loader/>
+      }
       <div className="top">
         <h1>{query}</h1>
         <ul>
@@ -85,7 +97,7 @@ const handleSort=(val)=>{
         {filteredData&&filteredData.map((item, index) => (
           <div key={index} className="card">
             <div className="badge">{item.category}</div>
-            <img src="/src/assets/pdf.png" alt="img" />
+            <img src="https://colleges-notes-websites.vercel.app/assets/pdf.png" alt="img" />
 
             <div className="card-body">
               <h2>{item.code}</h2>

@@ -7,7 +7,7 @@ const Navbar = () => {
   return (
     <nav className="navbar">
       <div className="nav-logo">
-        <img src="src/assets/study2.webp" alt="img" />
+        <img src="https://colleges-notes-websites.vercel.app/assets/study2.webp" alt="img" />
         <div>StudentX</div>
       </div>
       <ul>
