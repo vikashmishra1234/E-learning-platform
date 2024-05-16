@@ -3,29 +3,15 @@ import './style.css';
 import { signUp } from '../services/Api';
 import { useNavigate } from 'react-router-dom';
 import { useFormik } from 'formik';
-import * as Yup from 'yup';
+
 import { Loader } from '../Loader';
+import { signUpValidate } from './Validation';
 
 const SignUpForm = ({ setShow }) => {
   const navigate = useNavigate();
   const [loader,setLoader] = useState(false);
 
-  // Yup validation schema
-  const validationSchema = Yup.object({
-    name: Yup.string().min(3).required('Name is required'),
-    studentYear: Yup.number()
-    .required('Student Year is required')
-    .integer('Student Year must be an integer')
-    .positive('Student Year must be a positive number')
-    .test(
-      'len',
-      'Student Year must be a single digit',
-      val => val && val.toString().length === 1
-    ),
-    phone: Yup.string()
-      .required('Phone Number is required')
-      .matches(/^\d{10}$/, 'Invalid phone number'),
-  });
+
 
   // Formik setup
   const formik = useFormik({
@@ -34,7 +20,7 @@ const SignUpForm = ({ setShow }) => {
       studentYear: '',
       phone: '',
     },
-    validationSchema,
+    validationSchema:signUpValidate,
     onSubmit: async (values) => {
       setLoader(true)
       const res = await signUp(values);

@@ -75,4 +75,7 @@ text-decoration: none;
         cursor: pointer;
         color: white;
     }
+    .nav-logo{
+        padding-left: 4px;
+    }
 }

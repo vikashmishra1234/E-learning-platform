@@ -2,7 +2,7 @@
     text-align: center;
     padding-top: 20px;
     background-color: lightblue;
-    height: 66vh;
+    height: fit-content;
     /* clip-path: polygon(100% 0%, 100% 71%, 59% 83%, 0 100%, 0% 50%, 0 0); */
 }
 .home-section h2{
@@ -59,7 +59,12 @@
 .lottie{
     width: 20%;
 }
-@media screen and (max-width:450px){
+@media screen and (max-width:650px){
+    .lottie{
+        width: 70%;
+    }
+}
+@media screen and (max-width:650px){
     .home-section{
         padding-top: 40px;
         
@@ -69,10 +74,11 @@
         font-size: 18px;
     }
     .center-section h1{
-        font-size: 32px;
+        font-size: 29px;
+        margin: 0;
     }
     .lottie{
-        width: 73%;
+        width: 63%;
     }
     .home-section h2{
         font-size: 29px;

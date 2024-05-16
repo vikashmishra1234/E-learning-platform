@@ -1,103 +1,130 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect,useState } from "react";
+import { useFormik } from "formik";
+
 import { addItems } from "../services/Api";
-import { Navigate, useNavigate } from "react-router-dom";
-import './style.css'
+import { useNavigate } from "react-router-dom";
+import "./style.css";
 import { Loader } from "../Loader";
+import { NotesValidation } from "../auth/Validation";
+
+
+
 const AddNotes = () => {
-  const [code, setCode] = useState("");
-  const [category, setCategory] = useState("");
-  const [year, setYear] = useState();
-  const [subjectName, setSubject] = useState();
-  const [data, setData] = useState("");
-  const [loader,setLoader] = useState(false);
-  const Navigate = useNavigate();
+  const [loader, setLoader] = useState(false);
+  const navigate = useNavigate();
 
   useEffect(() => {
-    localStorage.getItem("token") ? "" : Navigate("/auth");
-  });
-  const handleFile = (e) => {
-    setData(e.target.files[0]);
-    // setItemDetail({...itemDetail,data:formData});
-  };
-  const handleSubmit = async (e) => {
-    e.preventDefault();
+    const token = localStorage.getItem("token");
+    if (!token) {
+      navigate("/auth");
+    }
+  }, [navigate]);
 
-    const formData = new FormData();
-    formData.append("file", data);
-    formData.append("code", code);
-    formData.append("category", category);
-    formData.append("subjectName", subjectName);
-    formData.append("year", year);
-    setLoader(true)
-    const res = await addItems(formData);
-    setLoader(false);
-    alert(res)
-  };
-  return (
-    <form action="" onSubmit={handleSubmit} className="form-container">
-      {
-        loader&&<Loader/>
+  const formik = useFormik({
+    initialValues: {
+      code: "",
+      year: "",
+      subjectName: "",
+      category: "",
+      file: null,
+    },
+    validationSchema:NotesValidation,
+    onSubmit: async (values) => {
+      setLoader(true);
+      const formData = new FormData();
+      formData.append("file", values.file);
+      formData.append("code", values.code);
+      formData.append("category", values.category);
+      formData.append("subjectName", values.subjectName);
+      formData.append("year", values.year);
+
+      try {
+        const res = await addItems(formData);
+        alert(res);
+      } catch (error) {
+        console.error("Error uploading file:", error);
+      } finally {
+        setLoader(false);
       }
-      <h2 style={{textAlign:'center'}}>Add Notes</h2>
+    },
+  });
+
+  return (
+    <form onSubmit={formik.handleSubmit} className="form-container">
+      {loader && <Loader />}
+      <h2 style={{ textAlign: "center" }}>Add Notes</h2>
       <div className="input-field">
         <label htmlFor="code">Subject Code</label>
         <input
-        required
           type="text"
-          onChange={(e) => {
-            setCode(e.target.value);
-          }}
-          name="subjectCode"
           id="code"
-          placeholder="enter value"
+          placeholder="Enter value"
+          {...formik.getFieldProps("code")}
+          onBlur={formik.handleBlur}
         />
+        {formik.touched.code && formik.errors.code ? (
+          <div>{formik.errors.code}</div>
+        ) : null}
       </div>
       <div className="input-field">
         <label htmlFor="year">Year</label>
         <input
-        required
-          onChange={(e) => {
-            setYear(e.target.value);
-          }}
           type="number"
-          placeholder="enter value"
           id="year"
+          placeholder="Enter value"
+          {...formik.getFieldProps("year")}
+          onBlur={formik.handleBlur}
         />
+        {formik.touched.year && formik.errors.year ? (
+          <div>{formik.errors.year}</div>
+        ) : null}
       </div>
       <div className="input-field">
         <label htmlFor="subjectName">Subject Name</label>
         <input
-        required
-          onChange={(e) => {
-            setSubject(e.target.value);
-          }}
           type="text"
-          name=""
           id="subjectName"
-          placeholder='subject name'
+          placeholder="Subject name"
+          {...formik.getFieldProps("subjectName")}
+          onBlur={formik.handleBlur}
         />
+        {formik.touched.subjectName && formik.errors.subjectName ? (
+          <div>{formik.errors.subjectName}</div>
+        ) : null}
       </div>
       <div className="input-field">
         <select
-        required
-          onChange={(e) => {
-            setCategory(e.target.value);
-          }}
-          name="category"
           id="category"
+          {...formik.getFieldProps("category")}
+          onBlur={formik.handleBlur}
         >
-          <option value="previousyear">Previos Year</option>
+          <option value="">Select Category</option>
+          <option value="previousyear">Previous Year</option>
           <option value="notes">Notes</option>
           <option value="quantum">Quantum</option>
         </select>
+        {formik.touched.category && formik.errors.category ? (
+          <div>{formik.errors.category}</div>
+        ) : null}
       </div>
       <div className="file-input">
         <label htmlFor="pdf">Choose the file</label>
-        <input required onChange={handleFile} type="file" id="pdf" />
-        
+        <input
+          type="file"
+          id="pdf"
+          onChange={(event) => {
+            formik.setFieldValue("file", event.currentTarget.files[0]);
+          }}
+          onBlur={formik.handleBlur}
+        />
+        {formik.touched.file && formik.errors.file ? (
+          <div>{formik.errors.file}</div>
+        ) : null}
       </div>
       <div className="submit-button">
-        <button type="submit">Submit</button>
+        <button type="submit" disabled={formik.isSubmitting}>
+          Submit
+        </button>
       </div>
     </form>
   );

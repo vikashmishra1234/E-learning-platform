@@ -5,6 +5,7 @@ import { MdOutlineDoNotDisturb } from "react-icons/md";
 import pdfImg from '../../assets/pdf.png'
 import "./style.css";
 import { Loader } from "../Loader";
+import DownLoadProgress from "./DownLoadProgress";
 
 const Main = () => {
   const [query, setQuery] = useState(null);
@@ -16,8 +17,9 @@ const Main = () => {
   const [loader,setLoader] = useState(false);
   
   const location = useLocation();
+  const [downloadProgressComponent, setDownloadProgressComponent] = useState(null);
 
-  
+ 
   const getQuery = () => {
     const searchParams = new URLSearchParams(location.search);
     const queryParamValue = searchParams.get("q");
@@ -69,10 +71,11 @@ const Main = () => {
 const handleSort=(val)=>{
   const filteredData = pdfData.filter((data)=> {return data.year&&data.year==val});
   setActive(val)
+ 
  setFilter(filteredData)
 }
   return (
-    <div style={{ paddingTop: "20px" }}>
+    <div>
       {
         loader&&<Loader/>
       }
@@ -88,7 +91,7 @@ const handleSort=(val)=>{
       </div>
       <section className="card-container">
       {
-        filteredData&&filteredData.length===0&&<div style={{gap:'5px',display:'flex',alignItems:'center'}}>
+       !loader&&filteredData&&filteredData.length===0&&<div style={{gap:'5px',display:'flex',alignItems:'center'}}>
           <div>
           <MdOutlineDoNotDisturb size={29} />
           </div>
@@ -104,17 +107,12 @@ const handleSort=(val)=>{
               <h2>{item.code}</h2>
               <p>{item.subjectName}</p>
 
-              <a
-  href={`https://colleges-notes-websites.onrender.com/pdf?fileName=${item.name}`}
-  download={`file_${index}.pdf`}
-  className="btn btn-primary"
->
-  Download
-</a>
+            <DownLoadProgress fileName={item.name}/>
             </div>
           </div>
         ))}
       </section>
+        {downloadProgressComponent}
  {/* {   active=='All'&&<div style={{margin:'auto',width:'fit-content',paddingTop:'10px'}}>
         <Link style={{
          borderRadius:'5px',

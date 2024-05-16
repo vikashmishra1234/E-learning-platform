@@ -8,7 +8,16 @@
     text-transform: uppercase;
     font-family: monospace;
 }
+#download-btn{
+    text-decoration: none;
+}
+#download-btn:hover{
+    background: white;
+    border: 1px solid black;
+    color: black;
+}
 .top{
+    padding-top: 10px;
     margin-bottom: 40px;
     border-bottom: 1px solid black;
    
@@ -23,6 +32,7 @@
 .top h1{
 text-align: center;
 text-transform: uppercase;
+font-family: 'Courier New', Courier, monospace;
 
 }
 .top ul{
@@ -56,42 +66,33 @@ text-transform: uppercase;
     width: 66%;
 }
 .card-body h2 {
-    font-size: 25px;
+   
     font-weight: bold;
-    padding: 4px;
+   
     font-family: system-ui;
 }
 .card-body p{
     font-size: 20px;
     padding: 2px;
 }
-.card-body a{
-    text-decoration: none;
-    color: white;
-    font-size: 20px;
-    background: blue;
-    font-weight: bold;
-    width: 79%;
-    border-radius: 6px;
-    padding: 9px 17px 8px 17px;
-    font-family: sans-serif;
-    margin: auto;
 
-}
 .card-body{
     text-align: center;
-    padding-bottom: 5px;
+    padding-bottom: 13px;
     border-bottom-left-radius: inherit;
     border-bottom-right-radius: inherit;
     display: flex;
     flex-direction: column;
     width: 100%;
-    gap: 3px;
+   
     background-color: aquamarine;
 }
 @media screen and (max-width:500px){
 
     .top ul{
         margin-top: 19px;
+    }
+    .top h1{
+        font-size:28px ;
     }
 }
