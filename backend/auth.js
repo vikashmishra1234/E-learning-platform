@@ -71,7 +71,7 @@ exports.verifyToken=async(req,res,next)=>{
           next();
         } catch (err) {
           if (err.name === 'TokenExpiredError') {
-            return res.status(401).json({ error: 'Token expired' });
+            return res.send("something went wrong. (you can try reloading the page)");
           } else if (err.name === 'JsonWebTokenError') {
             return res.status(401).json({ error: 'Invalid token' });
           } else {
