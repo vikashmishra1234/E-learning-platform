@@ -19,7 +19,7 @@ exports.login=async(req,res)=>{
         }
         const token=jwt.sign({
            data
-          }, 'secret', { expiresIn: '1h' });
+          }, 'secret', { expiresIn: '96h' });
         
        
         res.status(200).json({token:token,message:'Login Successful'});
@@ -42,7 +42,7 @@ exports.signUp=async(req,res)=>{
     }
     const token=jwt.sign({
        data
-      }, 'secret', { expiresIn: '1h' });
+      }, 'secret', { expiresIn: '96h' });
     
     await newUser.save();
     res.status(200).json({token:token,message:'sign up successful'});
