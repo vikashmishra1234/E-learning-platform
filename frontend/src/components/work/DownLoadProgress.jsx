@@ -9,7 +9,8 @@ const DownLoadProgress = ({ fileName }) => {
       setErrorMessage('');
       const response = await fetch(`https://colleges-notes-websites.onrender.com/pdf?fileName=${fileName}`);
       if (!response.ok) {
-        throw new Error('Failed to fetch PDF');
+       alert("unable to download")
+       return
       }
 
       const totalBytes = response.headers.get('Content-Length');
@@ -41,6 +42,7 @@ const DownLoadProgress = ({ fileName }) => {
     <div style={{paddingTop:"10px"}} >
       <a
         href={`https://colleges-notes-websites.onrender.com/pdf?fileName=${fileName}`}
+        
         download={fileName}
         className="btn btn-primary"
         onClick={handleDownloadClick}

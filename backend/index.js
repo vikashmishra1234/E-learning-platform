@@ -6,6 +6,7 @@ const cors = require('cors');
 const { signUp, login, verifyToken } = require('./auth');
 const dotenv = require('dotenv');
 const { handlePdf } = require('./handlePdf');
+const { dbConnection } = require('./Db');
 dotenv.config();
 
 const app = express();
@@ -18,16 +19,7 @@ app.use(cors({
   methods:["POST","GET"]
 }));
 app.use(express.json());
-try {
-  
-  mongoose.connect(`${process.env.MONGO_URI}`);
-  const db = mongoose.connection;
-  db.on('error', console.error.bind(console, 'MongoDB connection error:'));
-  console.log("connected to database")
-} catch (error) {
-  console.log(error.message)
-}
-
+dbConnection();
 // Define schema for PDF files
 const pdfSchema = new mongoose.Schema({
   name: String,

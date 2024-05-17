@@ -8,6 +8,8 @@ const Login = ({setShow}) => {
     const handleSubmit = async(e)=>{
         e.preventDefault();
         const res = await login({phone});
+
+       
         if(res.token){
             alert(res.message);
             localStorage.setItem("token",res.token);

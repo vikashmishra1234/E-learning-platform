@@ -10,7 +10,7 @@ exports.handlePdf = (req, res) => {
     // Get the file stats to obtain the file size
     fs.stat(filePath, (err, stats) => {
       if (err) {
-        console.error('Error getting file stats:', err);
+        console.error('Error getting file stats:', err.message);
         res.status(500).send('Internal Server Error');
         return;
       }

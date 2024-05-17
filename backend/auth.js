@@ -9,7 +9,9 @@ const User = mongoose.model('user',userSchema);
 
 exports.login=async(req,res)=>{
     try {
+    
         const user = await User.findOne({phone:req.body.phone});
+        
         if(!user){
             return res.status(401).send("Please Sign Up");
         }
@@ -19,9 +21,10 @@ exports.login=async(req,res)=>{
         }
         const token=jwt.sign({
            data
-          }, 'secret', { expiresIn: '1h' });
-        
-       
+          }, 'secret', { expiresIn: '96h' });
+
+          // res.setHeader('Set-Cookie', `authToken=${token}; Path=http://localhost:5173; Max-Age=${3600}; SameSite=None; Secure`);       
+
         res.status(200).json({token:token,message:'Login Successful'});
     } catch (error) {
         res.status(500).send(error.message);
@@ -42,7 +45,7 @@ exports.signUp=async(req,res)=>{
     }
     const token=jwt.sign({
        data
-      }, 'secret', { expiresIn: '1h' });
+      }, 'secret', { expiresIn: '96h' });
     
     await newUser.save();
     res.status(200).json({token:token,message:'sign up successful'});
@@ -56,8 +59,9 @@ exports.verifyToken=async(req,res,next)=>{
    
         // Get the token from the request headers
         const token = req.headers.authorization || req.headers.Authorization;
-      
+
         if (!token) {
+          
           return res.status(401).json({ error: 'Missing token' });
         }
       
@@ -66,6 +70,7 @@ exports.verifyToken=async(req,res,next)=>{
           const decoded = jwt.verify(token.split(' ')[1],'secret' );
       
           // Add the decoded payload to the request object
+         
           req.user = decoded;
     
           next();

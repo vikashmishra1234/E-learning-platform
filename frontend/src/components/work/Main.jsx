@@ -30,44 +30,19 @@ const Main = () => {
     setLoader(true);
     const res = await getItem(query);
     setLoader(false)
-    if(res&&res.pdf){
-
-      setPdf(res.pdf);
-    }
+   setPdf(res.pdf)
   };
 
   useEffect(() => {
     !query && getQuery();
     query && getData();
   }, [query]);
-
-  useEffect(() => {
-    const fetchPdfData = async () => {
-      const pdfDataPromises = pdf.map(async (item) => {
-       console.log(item.name)
-        const response = await fetch(
-          `https://colleges-notes-websites.vercel.app/uploads/${item.name}`
-        );
-     
-        const data = await response.blob();
-        
-        return { ...item, data };
-      });
-      setLoader(true)
-      const resolvedPdfData = await Promise.all(pdfDataPromises);
-      console.log(resolvedPdfData)
-      setLoader(false)
-      setPdfData(resolvedPdfData);
-    };
-
-    if (pdf.length > 0) {
-    fetchPdfData()
-      
-    }
-  }, [pdf]);
+;
   useEffect(()=>{
-    setFilter(pdfData)
-  },[pdfData,change])
+    setFilter(pdf)
+  },[pdf,change])
+
+
 const handleSort=(val)=>{
   const filteredData = pdfData.filter((data)=> {return data.year&&data.year==val});
   setActive(val)
