@@ -23,8 +23,6 @@ exports.login=async(req,res)=>{
            data
           }, 'secret', { expiresIn: '96h' });
 
-          // res.setHeader('Set-Cookie', `authToken=${token}; Path=http://localhost:5173; Max-Age=${3600}; SameSite=None; Secure`);       
-
         res.status(200).json({token:token,message:'Login Successful'});
     } catch (error) {
         res.status(500).send(error.message);
@@ -76,7 +74,7 @@ exports.verifyToken=async(req,res,next)=>{
           next();
         } catch (err) {
           if (err.name === 'TokenExpiredError') {
-            return res.status(401).json({ error: 'Token expired' });
+            return res.send("something went wrong. (you can try reloading the page)");
           } else if (err.name === 'JsonWebTokenError') {
             return res.status(401).json({ error: 'Invalid token' });
           } else {
