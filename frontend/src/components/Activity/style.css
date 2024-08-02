@@ -77,7 +77,14 @@
     padding-bottom: 10px;
     color: #787272;
 }
-
+.not-found{
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    font-size: 23px;
+    padding-top: 11px;
+    padding-bottom: 8px;
+}
 @media screen and (max-width:480px){
     .activity-section>div>div{
         gap: 24px;

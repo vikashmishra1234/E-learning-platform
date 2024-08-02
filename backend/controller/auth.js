@@ -23,7 +23,7 @@ exports.login=async(req,res)=>{
            data
           }, 'secret', { expiresIn: '96h' });
 
-        res.status(200).json({token:token,message:'Login Successful'});
+       return res.status(200).json({token:token,message:'Login Successful'});
     } catch (error) {
         res.status(500).send(error.message);
         
@@ -46,10 +46,10 @@ exports.signUp=async(req,res)=>{
       }, 'secret', { expiresIn: '96h' });
     
     await newUser.save();
-    res.status(200).json({token:token,message:'sign up successful'});
+    return res.status(200).json({token:token,message:'sign up successful'});
         
     } catch (error) {
-        res.status(500).send(error.message);
+       return res.status(500).send(error.message);
     }
 }
 
