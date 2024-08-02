@@ -22,7 +22,8 @@ const PORT = 5000;
 // }));
 app.use(cors({
   origin:['https://colleges-notes-websites.vercel.app'],
-  methods:["POST","GET"]
+  methods:["POST","GET"],
+  credentials:true
 }));
 app.use(cookieParser())
 app.use(express.json());
