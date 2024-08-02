@@ -46,9 +46,9 @@ const Activity = () => {
           <button>Edit Profile</button>
         </div>
       </div>
-      <h2 className="activity-heading">you shared the following files.</h2>
       {
-        files&&files.length>0?files.map(file=>(
+        files&&files.length>0?<h2 className="activity-heading">you shared the following files.</h2>
+        &&files.map(file=>(
             <div key={file._id} className="activity-data">
             <img
               className="icon"
@@ -63,7 +63,7 @@ const Activity = () => {
               <MdDelete cursor={'pointer'} onClick={()=>handleDelete(file._id)} size={30} />
             </div>
           </div>
-        )):<small>you hav'nt upload any file.</small>
+        )):<small style={{position:'relative',left:'40%'}}>you hav'nt upload any file.</small>
       }
     </section>
   );

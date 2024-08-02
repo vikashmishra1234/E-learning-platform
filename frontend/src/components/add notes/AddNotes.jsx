@@ -17,6 +17,9 @@ const AddNotes = () => {
 
   useEffect(()=>{
     const token = Cookies.get('tokenStudentX');
+    if(!token){
+      navigate('/auth')
+    }
     setToken(token);
     
   },[Cookies.get('tokenStudentX')])
