@@ -1,41 +1,38 @@
-import React, { useState } from 'react';
-import './style.css';
-import { signUp } from '../services/Api';
-import { useNavigate } from 'react-router-dom';
-import { useFormik } from 'formik';
-
-import { Loader } from '../Loader';
-import { signUpValidate } from './Validation';
+import React, { useState } from "react";
+import "./style.css";
+import { signUp } from "../services/Api";
+import { useNavigate } from "react-router-dom";
+import { useFormik } from "formik";
+import Cookie from "js-cookie";
+import { Loader } from "../Loader";
+import { signUpValidate } from "./Validation";
 
 const SignUpForm = ({ setShow }) => {
   const navigate = useNavigate();
-  const [loader,setLoader] = useState(false);
-
-
+  const [loader, setLoader] = useState(false);
 
   // Formik setup
   const formik = useFormik({
     initialValues: {
-      name: '',
-      studentYear: '',
-      phone: '',
+      name: "",
+      studentYear: "",
+      phone: "",
     },
-    validationSchema:signUpValidate,
+    validationSchema: signUpValidate,
     onSubmit: async (values) => {
-      setLoader(true)
+      setLoader(true);
       const res = await signUp(values);
-      setLoader(false)
+      setLoader(false);
       alert(res.message);
-      localStorage.setItem('token', res.token);
-      navigate('/add/notes');
+      Cookie.set("tokenStudentX", res.token, { expires: 7 });
+
+      navigate("/add/notes");
     },
   });
-console.log(formik)
+ 
   return (
     <div className="signup-form-container">
-      {
-        loader&&<Loader/>
-      }
+      {loader && <Loader />}
       <h2>Student Sign Up</h2>
       <form onSubmit={formik.handleSubmit}>
         <div className="form-group">
@@ -49,7 +46,9 @@ console.log(formik)
             value={formik.values.name}
             onChange={formik.handleChange}
           />
-          {formik.touched.name&&formik.errors.name && <div style={{color:"red"}}>{formik.errors.name}</div>}
+          {formik.touched.name && formik.errors.name && (
+            <div style={{ color: "red" }}>{formik.errors.name}</div>
+          )}
         </div>
         <div className="form-group">
           <label htmlFor="studentYear">Student Year:</label>
@@ -62,7 +61,9 @@ console.log(formik)
             value={formik.values.studentYear}
             onChange={formik.handleChange}
           />
-          {formik.touched.studentYear&&formik.errors.studentYear && <div style={{color:"red"}}>{formik.errors.studentYear}</div>}
+          {formik.touched.studentYear && formik.errors.studentYear && (
+            <div style={{ color: "red" }}>{formik.errors.studentYear}</div>
+          )}
         </div>
         <div className="form-group">
           <label htmlFor="phone">Phone Number:</label>
@@ -75,7 +76,9 @@ console.log(formik)
             value={formik.values.phone}
             onChange={formik.handleChange}
           />
-          {formik.touched.phone&&formik.errors.phone && <div style={{color:"red"}}>{formik.errors.phone}</div>}
+          {formik.touched.phone && formik.errors.phone && (
+            <div style={{ color: "red" }}>{formik.errors.phone}</div>
+          )}
         </div>
         <button className="btn" type="submit">
           Sign Up
@@ -83,7 +86,12 @@ console.log(formik)
       </form>
       <div>
         <button
-          style={{ marginTop: '8px', cursor: 'pointer', width: '100%', height: '25px' }}
+          style={{
+            marginTop: "8px",
+            cursor: "pointer",
+            width: "100%",
+            height: "25px",
+          }}
           onClick={() => setShow(false)}
         >
           Login

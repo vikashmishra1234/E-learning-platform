@@ -1,0 +1,95 @@
+.activity-section{
+    margin: auto;
+    width: 65vw;
+    border: 1px solid lightgray;
+    padding-top: 27px;
+    background: #f9f6f6;
+    min-width: fit-content;
+}
+.activity-section >div>div{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 70px;
+}
+.activity-section >div>div>img{
+    border-radius: 50%;
+    width: 63px;
+    border: 2px solid;
+    padding: 10px;
+
+}
+.activity-section >div>div>div{
+    padding: 6px;
+    font-size: 27px;
+}
+.button-profile{
+    text-align: center;
+    padding-top: 20px;
+}
+.button-profile button{
+    width: 250px;
+    padding: 8px;
+    font-size: 17px;
+    border: none;
+    background: #2bb3df;
+    color: white;
+    font-weight: bold;
+    letter-spacing: .2px;
+    border-radius: 21px;
+    cursor: pointer;
+}
+.button-profile button:hover{
+    color: black;
+    background-color: white;
+    border: 1px solid;
+}
+.activity-data{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 50px;
+    font-size: 23px;
+   margin-top: 20px !important;
+    width: 349px;
+    margin: auto;
+    height: 59px;
+    border-bottom: 1px solid #b7b7b7;
+}
+.icon{
+    width: 44px;
+    border: 1px solid;
+    border-radius: 50%;
+    
+}
+.subjectName{
+    width: 47%;
+    text-transform: uppercase;
+    gap: 7px !important;
+}
+.subjectName >small{
+    font-size: 16px;
+}
+.activity-heading{
+    text-align: center;
+    padding-top: 27px;
+    font-size: 27px;
+    padding-bottom: 10px;
+    color: #787272;
+}
+
+@media screen and (max-width:480px){
+    .activity-section>div>div{
+        gap: 24px;
+    }
+    .activity-section{
+        width: 100%;
+    }
+    .activity-data{
+        gap: 32px;
+        width: unset;
+    }
+    .activity-heading{
+        font-size: 21px;
+    }
+}

@@ -6,7 +6,12 @@ import Main from "./components/work/Main"
 import AddNotes from "./components/add notes/AddNotes"
 import SignUpForm from "./components/auth/SignUp"
 import Auth from "./components/auth/Auth"
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import { Suspense } from "react";
+import { lazy } from "react"
 
+const Activity = lazy(()=>import('./components/Activity/Activity'));
 
 function App() {
   
@@ -24,11 +29,16 @@ function App() {
 
     <Navbar/>
     <Routes>
+      
+        <Route exact path="/activity" element={
+          <Suspense fallback={<div>loading...</div>}><Activity/> </Suspense>}/>
+     
       <Route path='/' element={ <Files/>}/>
       <Route path='/add/notes' element={ <AddNotes/>}/>
       <Route path='/work' element={<Main/>}/>
       <Route path='/auth' element={<Auth/>}/>
     </Routes>
+    <ToastContainer position="top-center" />
     </BrowserRouter>
   )
 }

@@ -15,10 +15,12 @@ const Navbar = () => {
         <GiHamburgerMenu className="ham" onClick={()=>setShow(!show)} color="white" size={28} />
        <div className="ul-item">
           <li onClick={()=>setShow(false)}><Link to='/'>Home</Link></li>
+          <li onClick={()=>setShow(false)}><Link to='/activity'>Your Activity</Link></li>
           <li onClick={()=>setShow(false)}>Contact</li>
         </div>
        { show&&<div className="li-item">
           <li onClick={()=>setShow(false)}><Link to='/'>Home</Link></li>
+          <li onClick={()=>setShow(false)}>Your Activity</li>
           <li onClick={()=>setShow(false)}>Contact</li>
         </div>}
       </ul>

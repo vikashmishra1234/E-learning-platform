@@ -5,7 +5,6 @@ import { MdOutlineDoNotDisturb } from "react-icons/md";
 import pdfImg from '../../assets/pdf.png'
 import "./style.css";
 import { Loader } from "../Loader";
-import DownLoadProgress from "./DownLoadProgress";
 
 const Main = () => {
   const [query, setQuery] = useState(null);
@@ -17,7 +16,6 @@ const Main = () => {
   const [loader,setLoader] = useState(false);
   
   const location = useLocation();
-  const [downloadProgressComponent, setDownloadProgressComponent] = useState(null);
 
  
   const getQuery = () => {
@@ -30,7 +28,7 @@ const Main = () => {
     setLoader(true);
     const res = await getItem(query);
     setLoader(false)
-   setPdf(res.pdf)
+   setPdf(res.files)
   };
 
   useEffect(() => {
@@ -81,25 +79,14 @@ const handleSort=(val)=>{
             <div className="card-body">
               <h2>{item.code}</h2>
               <p>{item.subjectName}</p>
-
-            <DownLoadProgress fileName={item.name}/>
+            
+            <a href={item.file} download={'my file'}>download</a>
             </div>
           </div>
         ))}
       </section>
-        {downloadProgressComponent}
- {/* {   active=='All'&&<div style={{margin:'auto',width:'fit-content',paddingTop:'10px'}}>
-        <Link style={{
-         borderRadius:'5px',
-          fontSize:'22px',
-          fontWeight:'bold',
-          padding:'10px',
-          background:'black',
-          color:'white',
-          textDecoration:'none',
-          
-        }} to={'/add/notes'}>AddNotes</Link>
-      </div>} */}
+        
+
     </div>
   );
 };

@@ -56,8 +56,8 @@ exports.signUp=async(req,res)=>{
 exports.verifyToken=async(req,res,next)=>{
    
         // Get the token from the request headers
-        const token = req.headers.authorization || req.headers.Authorization;
-
+        const token = req.cookies.tokenStudentX;
+     
         if (!token) {
           
           return res.status(401).json({ error: 'Missing token' });
@@ -65,7 +65,7 @@ exports.verifyToken=async(req,res,next)=>{
       
         try {
           // Verify the token using the secret key
-          const decoded = jwt.verify(token.split(' ')[1],'secret' );
+          const decoded = jwt.verify(token,'secret' );
       
           // Add the decoded payload to the request object
          
