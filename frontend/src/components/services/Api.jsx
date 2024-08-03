@@ -2,10 +2,11 @@ import axios from "axios";
 
 // const url = "http://localhost:5000";
 const url = 'https://colleges-notes-websites.onrender.com';
-
+import Cookies from 'js-cookie';
 axios.defaults.withCredentials = true;
 export const addItems = async (data) => {
   try {
+    console.log(Cookies.get("tokenStudentX"))
     const res = await axios.post(`${url}/addfiles`, data);
 
     return res.data;
