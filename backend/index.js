@@ -16,7 +16,7 @@ const PORT = 5000;
 
 // Connect to MongoDB
 // app.use(cors({
-//   origin:['http://localhost:5173'],
+//   origin:['http://localhost:3000'],
 //   methods:["POST","GET"],
 //   credentials:true
 // }));

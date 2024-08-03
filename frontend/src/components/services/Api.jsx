@@ -29,6 +29,7 @@ export const login = async (data) => {
     return res.data;
   } catch (error) {
     console.log(error.message);
+    alert(error.message)
   }
 };
 export const signUp = async (data) => {
@@ -37,6 +38,7 @@ export const signUp = async (data) => {
     return res.data;
   } catch (error) {
     console.log(error.message);
+    alert(error.message)
   }
 };
 export const getUploadedFiles = async () => {

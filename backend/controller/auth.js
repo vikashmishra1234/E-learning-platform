@@ -60,7 +60,7 @@ exports.verifyToken=async(req,res,next)=>{
      
         if (!token) {
           
-          return res.status(401).json({ error: 'Missing token' });
+          return res.status(402).json({ error: 'Missing token' });
         }
       
         try {
@@ -74,9 +74,9 @@ exports.verifyToken=async(req,res,next)=>{
           next();
         } catch (err) {
           if (err.name === 'TokenExpiredError') {
-            return res.send("something went wrong. (you can try reloading the page)");
+            return res.send("something went wrong.");
           } else if (err.name === 'JsonWebTokenError') {
-            return res.status(401).json({ error: 'Invalid token' });
+            return res.status(403).json({ error: 'Invalid token' });
           } else {
             return res.status(401).json({ error: 'Invalid token' });
           }
