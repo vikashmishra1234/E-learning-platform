@@ -24,8 +24,12 @@ const SignUpForm = ({ setShow }) => {
       const res = await signUp(values);
       setLoader(false);
       alert(res.message);
-      Cookie.set("tokenStudentX", res.token,{ secure: true, sameSite: 'Strict' }, { expires: 7 });
-
+      Cookie.set("tokenStudentX", res.token, { 
+        secure: true,
+        domain: 'colleges-notes-websites.vercel.app', 
+        sameSite: 'Strict',
+        expires: 7 // 7 days from now
+      });
       navigate("/add/notes");
     },
   });
