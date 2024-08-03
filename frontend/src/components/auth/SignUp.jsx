@@ -24,7 +24,7 @@ const SignUpForm = ({ setShow }) => {
       const res = await signUp(values);
       setLoader(false);
       alert(res.message);
-      Cookie.set("tokenStudentX", res.token, { expires: 7 });
+      Cookie.set("tokenStudentX", res.token,{ secure: true, sameSite: 'Strict' }, { expires: 7 });
 
       navigate("/add/notes");
     },

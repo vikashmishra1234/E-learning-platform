@@ -13,7 +13,7 @@ const Login = ({ setShow }) => {
     if (res.token) {
       alert(res.message);
 
-      Cookie.set("tokenStudentX", res.token, { expires: 7 });
+      Cookie.set("tokenStudentX", res.token,{ secure: true, sameSite: 'Strict' }, { expires: 7 });
 
       Navigate("/add/notes");
     }
