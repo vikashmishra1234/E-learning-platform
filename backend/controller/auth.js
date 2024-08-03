@@ -56,15 +56,17 @@ exports.signUp=async(req,res)=>{
 exports.verifyToken=async(req,res,next)=>{
    
         // Get the token from the request headers
-        console.log(req.cookies)
-        const token = req.cookies.tokenStudentX;
-     
-        if (!token) {
-          
-          return res.status(402).json({ error: 'Missing token' });
-        }
+       
+        
       
         try {
+          const authHeader = req.headers['authorization'];
+          
+          const token = authHeader   
+         && authHeader.split(' ')[1];
+        
+          if (token == null) return res.sendStatus(401); // Unauthorized
+        
           // Verify the token using the secret key
           const decoded = jwt.verify(token,'secret' );
       

@@ -18,15 +18,16 @@ exports.getFiles = async (req, res) => {
 
 exports.addFiles = async (req, res) => {
   try {
+   
     const newPdf = new FileModel({
       file: req.body.file,
       code: req.body.code,
       category: req.body.category,
       subjectName: req.body.subjectName,
       year: req.body.year,
-      userId: req.user.user_id,
+      userId: req.user.data.user_id,
     });
-
+   
     await newPdf.save();
 
     res.status(200).send("File uploaded successfully.");

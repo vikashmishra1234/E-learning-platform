@@ -26,7 +26,7 @@ const SignUpForm = ({ setShow }) => {
       alert(res.message);
       Cookie.set("tokenStudentX", res.token, { 
         secure: true,
-        domain: 'colleges-notes-websites.vercel.app', 
+        
         sameSite: 'Strict',
         expires: 7 // 7 days from now
       });

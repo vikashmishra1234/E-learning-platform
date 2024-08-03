@@ -14,7 +14,6 @@ dotenv.config();
 const app = express();
 const PORT = 5000;
 
-// Connect to MongoDB
 // app.use(cors({
 //   origin:['http://localhost:5173'],
 //   methods:["POST","GET"],
@@ -35,7 +34,7 @@ app.post('/signup',signUp);
 // app.get('/getfiles',getFiles)
 app.post('/login',login);
 app.post('/addfiles',verifyToken,addFiles);
-app.post('/deletefiles',verifyToken,deleteFiles);
+app.post('/deletefiles',deleteFiles);
   
 app.get('/getuploadedfiles',verifyToken,userFiles);
 app.get('/getfiles',getFiles);

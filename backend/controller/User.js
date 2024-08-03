@@ -2,14 +2,17 @@ const FileModel = require("../models/FileModel");
 
 exports.userFiles = async(req,res)=>{
     try {
-        const userId = req.user.data.user_id;
+        const userId =req.user.data.user_id;
+        
        if(!userId){
         return res.status(402).json({
             message:'please provide credentials',
             success:false
         })
        }
+      
         const uploadedFiles = await FileModel.find({userId:userId});
+       
         if(!uploadedFiles){
             return res.status(402).json({
                 success:false,

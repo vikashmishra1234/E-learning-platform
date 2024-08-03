@@ -14,8 +14,11 @@ const Activity = () => {
   const getData = async () => {
       
     const data = await getUploadedFiles();
-    setName(data.user.data.userName)
-    setFiles(data.uploadedFiles);
+    if(data){
+      console.log(data)
+      setName(data.user.data.userName)
+      setFiles(data.uploadedFiles);
+    }
   };
   useEffect(() => {
     getData();
