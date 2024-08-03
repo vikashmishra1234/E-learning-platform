@@ -56,6 +56,7 @@ exports.signUp=async(req,res)=>{
 exports.verifyToken=async(req,res,next)=>{
    
         // Get the token from the request headers
+        console.log(req.cookies)
         const token = req.cookies.tokenStudentX;
      
         if (!token) {
