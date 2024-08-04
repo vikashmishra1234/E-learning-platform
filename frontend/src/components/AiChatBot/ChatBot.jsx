@@ -82,7 +82,7 @@ const ChatBot = () => {
           onChange={(e) => setQuestion(e.target.value)}
           placeholder="Enter your Problem"
         />
-        <IoMdSend onClick={handleKeyPress} size={30} />
+        <IoMdSend onClick={handleKeyPress} size={26} />
       </div>
     </div>
   );

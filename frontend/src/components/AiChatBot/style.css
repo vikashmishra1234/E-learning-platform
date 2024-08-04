@@ -4,9 +4,7 @@
     height: 90vh;
     width: 70vw;
     margin: auto;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
+ 
 }
 .chatting-area{
     height: 90%;
@@ -26,6 +24,7 @@
     border: 1px solid;
     border-radius: 43px;
     background: white;
+    
 }
 .input-area input{
     border: none;
@@ -88,5 +87,8 @@ code{
     }
     .problem{
         font-size: 19px;
+    }
+    .input-area input{
+        width: 85%;
     }
 }
