@@ -11,6 +11,8 @@ import 'react-toastify/dist/ReactToastify.css';
 import { Suspense } from "react";
 import { lazy } from "react"
 import ChatBot from "./components/AiChatBot/ChatBot"
+import Wave from "react-wavify"
+
 
 const Activity = lazy(()=>import('./components/Activity/Activity'));
 
