@@ -10,6 +10,7 @@ import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { Suspense } from "react";
 import { lazy } from "react"
+import ChatBot from "./components/AiChatBot/ChatBot"
 
 const Activity = lazy(()=>import('./components/Activity/Activity'));
 
@@ -32,6 +33,10 @@ function App() {
       
         <Route exact path="/activity" element={
           <Suspense fallback={<div>loading...</div>}><Activity/> </Suspense>}/>
+      
+        <Route exact path="/chatbot" element={
+          <Suspense fallback={<div>loading...</div>}><ChatBot/> </Suspense>}/>
+
      
       <Route path='/' element={ <Files/>}/>
       <Route path='/add/notes' element={ <AddNotes/>}/>

@@ -10,12 +10,14 @@ import axios from "axios";
 import Auth from "../auth/Auth";
 import { toast } from "react-toastify";
 
+
 const AddNotes = () => {
   const [loader, setLoader] = useState(false);
   const [authToken,setToken] = useState('');
   const navigate = useNavigate();
 
   useEffect(()=>{
+  
     const token = Cookies.get('tokenStudentX');
     if(!token){
       navigate('/auth')

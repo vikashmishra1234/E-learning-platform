@@ -7,7 +7,7 @@ const Center = () => {
         <Link to={'/work/?q=previousyear'}>Previous Year Paper</Link>
         <Link to={'/work/?q=quantum'}>All Aktu Quantum</Link>
         <Link to={'/work/?q=notes'}>Notes</Link>
-        <Link to={'/community'}>Community</Link>
+        <Link to={'/chatbot'}>Ask to AI</Link>
         <Link to={'/add/notes'}>AddNotes</Link>
     </section>
   )
