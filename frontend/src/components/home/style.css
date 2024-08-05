@@ -1,82 +1,56 @@
 .home-section{
     text-align: center;
-    /* padding-top: 20px; */
-    filter: blur(.7px) brightness(0.7);
+   
+    
     height: 65vh;
     background-repeat: no-repeat;
     background-size: cover;
-    background-image: url('../../assets/education1.jpg');
+    background-image: url('../../assets/education.jpg');
     display: flex;
     flex-direction: column;
-    background-color: aqua;
+  
     justify-content: space-between;
   
 }
+.home-div{
+    padding-top: 30px;
+}
 
-
+.quote{
+    filter: blur(.8px);
+    background: white;
+    width: 246px;
+    padding: 14px;
+    font-size: 18px;
+    margin: 11px auto 2px;
+    border-radius: 0px 38px 0px 38px;
+}
 
 .home-section h2{
-    font-size: 37px;
+    font-size: 46px;
     height: 54px;
+    word-spacing: 14px;
     letter-spacing: 1px;
-    font-family: system-ui;
+    /* font-family: system-ui; */
     font-weight: bold;
 }
 .lottie{
    
 }
 .home-section p{
-    font-size: 19px;
+    font-size: 18px;
     letter-spacing: 0.4px;
     padding: 12px;
     font-family: sans-serif;
     font-weight: bold;
-    color: brown;
+    color: aliceblue;
 }
-.center-section{
-    text-align: center;
-    display:flex;
-    align-items: center;
-    flex-direction: column;
-    gap: 15px;
-    padding-bottom: 20px;
-    background: #593d13;
-    padding-top: 19px;
-    /* height: 60vh; */
-    /* background-color: purple; */
-    /* clip-path: polygon(100% 0%, 100% 100%, 60% 100%, 0 100%, 0 59%, 42% 33%); */
 
-}
-.center-section a{
-    text-decoration: none;
-    color: antiquewhite;
-    background: black;
-    padding: 8px;
-    width: 30vw;
-    border-radius: 9px;
-    font-size: 21px;
-    text-align: center;
-    cursor: pointer;
-    font-weight: bold;
-    font-family: system-ui;
-}
-.center-section h1{
-    font-size: 36px;
-    font-family: sans-serif;
-    font-weight: bolder;
-    margin-bottom: 18px;
-}
-.lottie{
-    width: 20%;
-}
-@media screen and (max-width:650px){
-    .lottie{
-        width: 70%;
-    }
-}
+
 @media screen and (max-width:650px){
     .home-section{
         padding-top: 40px;
+        background-image: url('../../assets/education1.jpg');
         
     }
     .center-section a{
@@ -91,6 +65,7 @@
         width: 63%;
     }
     .home-section h2{
-        font-size: 29px;
+        font-size: 31px;
+        word-spacing: unset;
     }
 }

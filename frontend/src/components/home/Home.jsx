@@ -9,27 +9,21 @@ const Home = () => {
   return (
     <>
     <section className='home-section'>
-      <div>
+      <div className='home-div'>
 
-        <h2>Welcome To <strong style={{color:"#70ff70"}}>StudentX</strong></h2>
+        <h2>Welcome To <strong >StudentX</strong></h2>
         <p>{<Typewriter delaySpeed={49} words={['Your all study material is at one place.']}/>}</p>
-       
+       <div className='quote'>
+       "The best view comes after the hardest climb. Each step you take brings you closer to the summit. Embrace the journey, for it shapes who you become."
+       </div>
       </div>
         {/* <div className=''>
 
         <Lottie className='lottie' style={{margin:'auto'}} animationData={img}/>
         </div> */}
 
-    <Wave fill='#845712'
-        paused={false}
-        style={{ display: 'flex' }}
-        options={{
-          height: 80,
-          amplitude: 20,
-          speed: 0.15,
-          points: 3
-        }}
-  />
+    
+
     </section>
     </>
 
