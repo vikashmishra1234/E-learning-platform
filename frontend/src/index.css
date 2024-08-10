@@ -9,6 +9,9 @@ body{
 .loader{
   position: absolute;
   height: 100%;
+  left: 0;
+  top: 0;
+  
   width: 100%;
   align-items: center;
   display: flex;
