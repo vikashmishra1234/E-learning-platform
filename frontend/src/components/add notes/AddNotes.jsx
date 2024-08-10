@@ -55,6 +55,7 @@ const AddNotes = () => {
   });
 
   return (
+    <div className="form">
     
    <form onSubmit={formik.handleSubmit} className="form-container">
       {loader && <Loader />}
@@ -107,7 +108,7 @@ const AddNotes = () => {
           <option value="">Select Category</option>
           <option value="previousyear">Previous Year</option>
           <option value="notes">Notes</option>
-          <option value="quantum">Quantum</option>
+          <option value="quantum">Quantum/Books</option>
         </select>
         {formik.touched.category && formik.errors.category ? (
           <div>{formik.errors.category}</div>
@@ -150,6 +151,7 @@ const AddNotes = () => {
         </button>
       </div>
     </form>
+    </div>
   );
 };
 

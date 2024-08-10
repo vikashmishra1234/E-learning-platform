@@ -2,48 +2,44 @@ import React, { useEffect, useState } from "react";
 import "./style.css";
 import { IoMdSend } from "react-icons/io";
 import googleGeminiService from "../configGemini/gemini";
-import Prism from 'prismjs';
-import 'prismjs/themes/prism-okaidia.css'; // Import the desired theme
-import 'prismjs/components/prism-javascript';  // Example: Okaidia theme
+import Prism from "prismjs";
+import "prismjs/themes/prism-okaidia.css"; // Import the desired theme
+import "prismjs/components/prism-javascript"; // Example: Okaidia theme
 import { toast } from "react-toastify";
-import load from '../../assets/loader.gif'
-
+import load from "../../assets/loader.gif";
 
 const arr = [];
 const ChatBot = () => {
   const [problem, setProblem] = useState("");
-  const [question, setQuestion] = useState('');
-  const [response,setResponse] = useState('');
-  const [loader,setLoader] = useState(false);
+  const [question, setQuestion] = useState("");
+  const [response, setResponse] = useState("");
+  const [loader, setLoader] = useState(false);
 
-  const delayRes = (ind,word)=>{
-
-    const myTimeout = setTimeout(function(){
-      setResponse(prev=>prev+word)
-     
-    }, 75*ind);
-  }
+  const delayRes = (ind, word) => {
+    const myTimeout = setTimeout(function () {
+      setResponse((prev) => prev + word);
+    }, 75 * ind);
+  };
 
   const formatCode = (codeString) => {
-    return codeString
-      .replace(/\\n/g, '\n') 
-      .replace(/\\t/g, '\t');
+    return codeString.replace(/\\n/g, "\n").replace(/\\t/g, "\t");
   };
- 
+
   const handleKeyPress = async (e) => {
     if (e.which == 13 && question) {
-      setResponse('')
+      setResponse("");
       setProblem(question);
       try {
-        setLoader(true)
+        setLoader(true);
         const result = await googleGeminiService.generateContent(question);
-        setLoader(false)
-        const formatedResult = formatCode(result.candidates[0].content.parts[0].text);
+        setLoader(false);
+        const formatedResult = formatCode(
+          result.candidates[0].content.parts[0].text
+        );
         const split = formatedResult.split(" ");
-        for(let i = 0;i<split.length;i++){
-          delayRes(i,split[i]+" ");
+        for (let i = 0; i < split.length; i++) {
+          delayRes(i, split[i] + " ");
         }
-
       } catch (error) {
         console.log(error.message);
         toast.error("Something went wrong");
@@ -58,21 +54,28 @@ const ChatBot = () => {
   return (
     <div className="ai-section">
       <div className="chatting-area">
-        
-             {problem?<div className="problem">{problem}</div>:<h2>Welcome ! I am Your Ai Assistant</h2>} 
-            
-            {
-              loader?<img id="loads" src={load} alt="" />:
-              <div className="answer"> 
-                {
-                  response?<pre>
-                  <code className="language-javascript">{response}</code>
-                </pre>:""
-                }
-              
-            </div>
-            }
-          
+        {problem ? (
+          <div className="problem">{problem}</div>
+        ) : (
+          <h2>Welcome ! I am Your Ai Assistant</h2>
+        )}
+
+        {loader ? (
+          <img id="loads" src={load} alt="" />
+        ) : (
+          <div className="answer">
+            {response ? (
+              <pre>
+                <code className="language-javascript">{response}</code>
+              </pre>
+            ) : (
+              <div style={{marginTop:'35px',textAlign:'center'}}>
+                Hello, I am your AI Assistant, How can i Help you.
+              </div>
+            )}
+          </div>
+        )}
+
         {}
       </div>
       <div className="input-area" onKeyDown={(e) => handleKeyPress(e)}>
@@ -82,7 +85,7 @@ const ChatBot = () => {
           onChange={(e) => setQuestion(e.target.value)}
           placeholder="Enter your Problem"
         />
-        <IoMdSend onClick={()=>handleKeyPress({which:13})} size={26} />
+        <IoMdSend onClick={() => handleKeyPress({ which: 13 })} size={26} />
       </div>
     </div>
   );

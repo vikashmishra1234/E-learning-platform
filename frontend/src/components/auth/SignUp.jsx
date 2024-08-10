@@ -6,6 +6,7 @@ import { useFormik } from "formik";
 import Cookie from "js-cookie";
 import { Loader } from "../Loader";
 import { signUpValidate } from "./Validation";
+import { toast } from "react-toastify";
 
 const SignUpForm = ({ setShow }) => {
   const navigate = useNavigate();
@@ -17,20 +18,27 @@ const SignUpForm = ({ setShow }) => {
       name: "",
       studentYear: "",
       phone: "",
+      password:""
     },
     validationSchema: signUpValidate,
     onSubmit: async (values) => {
       setLoader(true);
+      let intYear = parseInt(values.studentYear)
+      values.studentYear = intYear;
+      console.log(values)
       const res = await signUp(values);
-      setLoader(false);
-      alert(res.message);
-      Cookie.set("tokenStudentX", res.token, { 
-        secure: true,
-        
-        sameSite: 'Strict',
-        expires: 7 // 7 days from now
-      });
-      navigate("/add/notes");
+      if(res){
+        setLoader(false);
+        toast.success(res.message);
+        Cookie.set("tokenStudentX", res.token, { 
+          secure: true,
+          
+          sameSite: 'Strict',
+          expires: 7 // 7 days from now
+        });
+        navigate("/add/notes");
+      }
+     
     },
   });
  
@@ -82,6 +90,21 @@ const SignUpForm = ({ setShow }) => {
           />
           {formik.touched.phone && formik.errors.phone && (
             <div style={{ color: "red" }}>{formik.errors.phone}</div>
+          )}
+        </div>
+        <div className="form-group">
+          <label htmlFor="password">Phone Number:</label>
+          <input
+            className="input"
+            type="password"
+            id="password"
+            name="password"
+            onBlur={formik.handleBlur}
+            value={formik.values.password}
+            onChange={formik.handleChange}
+          />
+          {formik.touched.password && formik.errors.password && (
+            <div style={{ color: "red" }}>{formik.errors.password}</div>
           )}
         </div>
         <button className="btn" type="submit">

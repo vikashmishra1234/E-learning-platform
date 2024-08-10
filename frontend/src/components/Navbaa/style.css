@@ -1,4 +1,105 @@
-.navbar{
+
+  
+  #nav {
+    height: 81px;
+    background: #4682b454;
+    width: 100%;
+    z-index: 20;
+  }
+  .example{
+    
+  }
+  
+  .background {
+   z-index: 1;
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    width: 300px;
+    background: linear-gradient(180deg, #96b1e9 0%, rgb(0, 153, 255) 100%);
+
+  }
+  
+  .button {
+    z-index: 2;
+    outline: none;
+    border: none;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    cursor: pointer;
+    position: absolute;
+    top: 18px;
+    left: 15px;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    background: transparent;
+  }
+  
+  .ul,
+  .li {
+    margin: 0;
+    padding: 0;
+  }
+  
+  .ul {
+    padding: 25px;
+    z-index: 14;
+    position: absolute;
+    top: 100px;
+    width: 230px;
+  }
+  .li a{
+    text-decoration: none;
+    font-size: 21px;
+    color: white;
+  }
+  .li {
+    list-style: none;
+    
+    margin-bottom: 20px;
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+  }
+  
+  .icon-placeholder {
+    color: white;
+    padding-top: 18px;
+    font-size: 27px;
+    height: fit-content;
+    border-radius: 50%;
+    flex: 36px 0;
+    margin-right: 20px;
+  }
+  
+  .text-placeholder {
+    border-radius: 5px;
+    width: 200px;
+    height: 20px;
+    flex: 1;
+  }
+  
+  .refresh {
+    padding: 10px;
+    position: absolute;
+    background: rgba(0, 0, 0, 0.4);
+    border-radius: 10px;
+    width: 20px;
+    height: 20px;
+    top: 10px;
+    right: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+  }
+  
+
+
+/* .navbar{
     width: 100%;
     background-color: rgb(13, 13, 13);
     color: white;
@@ -78,4 +179,4 @@ text-decoration: none;
     .nav-logo{
         padding-left: 4px;
     }
-}
+} */

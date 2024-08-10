@@ -1,17 +1,19 @@
 import React, { useState } from "react";
 import { login } from "../services/Api";
-import { Navigate, useNavigate } from "react-router-dom";
+import { Link, Navigate, useNavigate } from "react-router-dom";
 import Cookie from "js-cookie";
+import { toast } from "react-toastify";
 
 const Login = ({ setShow }) => {
-  const [phone, setPhone] = useState(null);
+ const [formData,setFormData] = useState({});
   const Navigate = useNavigate();
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const res = await login({ phone });
+  
+    const res = await login(formData);
 
-    if (res.token) {
-      alert(res.message);
+    if (res&&res.token) {
+      toast.success(res.message)
 
       Cookie.set("tokenStudentX", res.token,{ secure: true, sameSite: 'Strict' }, { expires: 7 });
 
@@ -19,7 +21,8 @@ const Login = ({ setShow }) => {
     }
   };
   const handleChange = (e) => {
-    setPhone(e.target.value);
+    setFormData({...formData,[e.target.name]:e.target.value})
+
   };
   return (
     <div className="signup-form-container">
@@ -28,6 +31,7 @@ const Login = ({ setShow }) => {
         <div className="form-group">
           <label htmlFor="phone">Phone Number:</label>
           <input
+          placeholder="Enter Phone"
             className="input"
             type="tel"
             id="phone"
@@ -35,6 +39,21 @@ const Login = ({ setShow }) => {
             onChange={handleChange}
             required
           />
+        </div>
+        <div className="form-group">
+          <label htmlFor="password">Password:</label>
+          <input
+          placeholder="Enter Password"
+            className="input"
+            type="password"
+            id="password"
+            name="password"
+            onChange={handleChange}
+            required
+          />
+        </div>
+        <div>
+          <Link to={'/forgetpassword'} >forget password ?</Link>
         </div>
         <button className="btn" type="submit">
           Login

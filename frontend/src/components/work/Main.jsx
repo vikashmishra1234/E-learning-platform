@@ -1,5 +1,5 @@
-import React, { useEffect, useState } from "react";
-import { Link, useLocation } from "react-router-dom";
+import React, { useEffect, useState, useMemo, useCallback } from "react";
+import { useLocation } from "react-router-dom";
 import { getItem } from "../services/Api";
 import { MdOutlineDoNotDisturb } from "react-icons/md";
 import pdfImg from '../../assets/pdf.png'
@@ -8,85 +8,94 @@ import { Loader } from "../Loader";
 
 const Main = () => {
   const [query, setQuery] = useState(null);
-  const [pdf, setPdf] = useState([]);
   const [pdfData, setPdfData] = useState([]);
-  const [filteredData,setFilter] = useState(null);
-  const [change,setChange] = useState(false);
-  const [active,setActive] = useState("All");
-  const [loader,setLoader] = useState(false);
+  const [active, setActive] = useState("All");
+  const [isLoading, setIsLoading] = useState(false);
   
   const location = useLocation();
 
- 
-  const getQuery = () => {
+  const getQuery = useCallback(() => {
     const searchParams = new URLSearchParams(location.search);
     const queryParamValue = searchParams.get("q");
     setQuery(queryParamValue);
-  };
+  }, [location.search]);
 
-  const getData = async () => {
-    setLoader(true);
-    const res = await getItem(query);
-    setLoader(false)
-   setPdf(res.files)
-  };
+  const getData = useCallback(async () => {
+    if (!query) return;
+    setIsLoading(true);
+    try {
+      const res = await getItem(query);
+      setPdfData(res.files || []);
+    } catch (error) {
+      console.error("Error fetching data:", error);
+    } finally {
+      setIsLoading(false);
+    }
+  }, [query]);
 
   useEffect(() => {
-    !query && getQuery();
-    query && getData();
-  }, [query]);
-;
-  useEffect(()=>{
-    setFilter(pdf)
-  },[pdf,change])
+    if (!query) {
+      getQuery();
+    } else {
+      getData();
+    }
+  }, [query, getQuery, getData]);
 
+  const filteredData = useMemo(() => {
+    if (active === "All") return pdfData;
+    return pdfData.filter((data) => {
+      if (!data.year) return false;
+      const dataYear = typeof data.year === 'string' ? parseInt(data.year, 10) : data.year;
+      return dataYear === parseInt(active, 10);
+    });
+  }, [pdfData, active]);
 
-const handleSort=(val)=>{
-  const filteredData = pdfData.filter((data)=> {return data.year&&data.year==val});
-  setActive(val)
- 
- setFilter(filteredData)
-}
+  const handleSort = useCallback((val) => {
+    setActive(val);
+  }, []);
+
+  const renderContent = () => {
+    if (isLoading) return <Loader />;
+    if (filteredData.length === 0) {
+      return (
+        <div style={{gap:'5px', display:'flex', alignItems:'center'}}>
+          <MdOutlineDoNotDisturb size={29} />
+          <h2>Not Found</h2>
+        </div>
+      );
+    }
+    return filteredData.map((item, index) => (
+      <div key={index} className="card">
+        <div className="badge">{item.category}</div>
+        <img src={pdfImg} alt="PDF icon" />
+        <div className="card-body">
+          <h2>{item.code}</h2>
+          <p>{item.subjectName}</p>
+          <a href={item.file} download={`${item.code}.pdf`}>Download</a>
+        </div>
+      </div>
+    ));
+  };
+
   return (
     <div>
-      {
-        loader&&<Loader/>
-      }
       <div className="top">
         <h1>{query}</h1>
         <ul>
-          <li className={active=='All'?'active':''} onClick={()=>{setChange(!change);setActive("All")}}>All</li>
-          <li className={active=='1'?'active':''} onClick={()=>handleSort(1)}>1</li>
-          <li className={active=='2'?'active':''}  onClick={()=>handleSort(2)} >2</li>
-          <li className={active=='3'?'active':''}  onClick={()=>handleSort(3)} >3</li>
-          <li className={active=='4'?'active':''} onClick={()=>handleSort(4)} >4</li>
+          {["All", "1", "2", "3", "4"].map((val) => (
+            <li
+              key={val}
+              className={active === val ? 'active' : ''}
+              onClick={() => handleSort(val)}
+            >
+              {val}
+            </li>
+          ))}
         </ul>
       </div>
       <section className="card-container">
-      {
-       !loader&&filteredData&&filteredData.length===0&&<div style={{gap:'5px',display:'flex',alignItems:'center'}}>
-          <div>
-          <MdOutlineDoNotDisturb size={29} />
-          </div>
-            <h2>Not Found</h2>
-        </div>
-      }
-        {filteredData&&filteredData.map((item, index) => (
-          <div key={index} className="card">
-            <div className="badge">{item.category}</div>
-            <img src={pdfImg} alt="img" />
-
-            <div className="card-body">
-              <h2>{item.code}</h2>
-              <p>{item.subjectName}</p>
-            
-            <a href={item.file} download={'my file'}>download</a>
-            </div>
-          </div>
-        ))}
+        {renderContent()}
       </section>
-        
-
     </div>
   );
 };

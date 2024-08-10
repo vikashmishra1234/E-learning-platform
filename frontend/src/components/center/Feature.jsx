@@ -1,17 +1,25 @@
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
+import {motion} from 'framer-motion';
 
 
-const Feature = ({image,para,cat}) => {
+const Feature = ({image,para,cat,link}) => {
+    const Navigate = useNavigate();
   return (
-    <div className='feature'>
+    <motion.div 
+    initial={{ scale:.7 }}
+     whileInView={{scale:1 }}
+    
+    transition={{duration:1.2}} 
+    className='feature'>
         <img src={image} alt="image" />
         <p>
             {para}
         </p>
         <div>
-            <button>{cat}</button>
+            <button id='btn' onClick={()=>Navigate(link)}>{cat}</button>
         </div>
-    </div>
+    </motion.div>
   )
 }
 

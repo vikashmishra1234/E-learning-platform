@@ -1,4 +1,6 @@
 const FileModel = require("../models/FileModel");
+const validate = require("../validations/zodValidation")
+
 
 exports.getFiles = async (req, res) => {
   try {
@@ -18,7 +20,7 @@ exports.getFiles = async (req, res) => {
 
 exports.addFiles = async (req, res) => {
   try {
-   
+  
     const newPdf = new FileModel({
       file: req.body.file,
       code: req.body.code,

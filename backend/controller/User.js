@@ -1,11 +1,12 @@
 const FileModel = require("../models/FileModel");
+const User = require("../models/User");
 
 exports.userFiles = async(req,res)=>{
     try {
         const userId =req.user.data.user_id;
         
        if(!userId){
-        return res.status(402).json({
+        return res.status(409).json({
             message:'please provide credentials',
             success:false
         })
@@ -14,7 +15,7 @@ exports.userFiles = async(req,res)=>{
         const uploadedFiles = await FileModel.find({userId:userId});
        
         if(!uploadedFiles){
-            return res.status(402).json({
+            return res.status(409).json({
                 success:false,
                 message:"Something went wrong"
             });
@@ -43,7 +44,7 @@ exports.deleteFiles = async(req,res)=>{
        
         const remove = await FileModel.deleteOne({_id:Id});
         if(!remove.acknowledged){
-            return res.status(402).json({
+            return res.status(409).json({
                 success:false,
                 message:'can not delete'
             })
@@ -57,6 +58,33 @@ exports.deleteFiles = async(req,res)=>{
         return res.status(500).json({
             success:false,
             message:'can not delete'
+        })
+    }
+}
+exports.phoneExit = async(req,res)=>{
+    try {
+        if(!req.body.phone){
+            return res.status(404).json({
+                success:false,
+                error:'enter all credentials'
+            })
+        }
+        req.body.phone = req.body.phone.slice(2);
+        const phone = await User.findOne({phone:req.body.phone});
+        if(!phone){
+            return res.status(404).json({
+                success:false,
+                error:"user not found"
+            })
+        }
+        return res.status(200).json({
+            success:true,
+            message:'user found'
+        })
+    } catch (error) {
+        return res.status(500).json({
+            success:false,
+            error:"something went wrong"
         })
     }
 }

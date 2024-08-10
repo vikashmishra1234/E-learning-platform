@@ -12,6 +12,8 @@ import { Suspense } from "react";
 import { lazy } from "react"
 import ChatBot from "./components/AiChatBot/ChatBot"
 import Wave from "react-wavify"
+import Footer from "./components/footer/Footer"
+import Forget from "./components/forgetPassword/Forget"
 
 
 const Activity = lazy(()=>import('./components/Activity/Activity'));
@@ -24,6 +26,7 @@ function App() {
     
       <Home/>
       <Center/>
+      <Footer/>
     </div>
   }
 
@@ -41,6 +44,8 @@ function App() {
 
      
       <Route path='/' element={ <Files/>}/>
+      <Route path='/forgetpassword' element={ <Forget/>}/>
+
       <Route path='/add/notes' element={ <AddNotes/>}/>
       <Route path='/work' element={<Main/>}/>
       <Route path='/auth' element={<Auth/>}/>
