@@ -27,8 +27,8 @@ const SignUpForm = ({ setShow }) => {
       values.studentYear = intYear;
       console.log(values)
       const res = await signUp(values);
+      setLoader(false);
       if(res){
-        setLoader(false);
         toast.success(res.message);
         Cookie.set("tokenStudentX", res.token, { 
           secure: true,

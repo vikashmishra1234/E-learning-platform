@@ -54,9 +54,11 @@ export const signUp = async (data) => {
     if (error.response) {
       toast.error(error.response.data.error);
       throw new Error(error);
+     
     } else {
       toast.error(error.message);
       throw new Error(error);
+      
     }
   }
 };

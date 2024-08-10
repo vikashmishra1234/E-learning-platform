@@ -1,9 +1,7 @@
 import React from 'react'
 import './style.css'
 import { Typewriter } from 'react-simple-typewriter'
-import Lottie from 'lottie-react';
-import img from '../../assets/animation.json'
-import Wave from 'react-wavify';
+import {motion} from 'framer-motion'
 import { useNavigate } from 'react-router-dom';
 
 const Home = () => {
@@ -14,14 +12,26 @@ const Home = () => {
     <section className='home-section'>
       <div className='home-div'>
 
-        <h2>Welcome To <strong >StudentX</strong></h2>
-        <p>{<Typewriter delaySpeed={49} words={['Your all study material is at one place.']}/>}</p>
-       <div className='quote'>
+        <motion.h2
+        initial={{x:-89,opacity:.6}}
+        whileInView={{x:0,opacity:1}}
+        transition={{duration:1}}
+        >Welcome to your journey of limitless learning !</motion.h2>
+       
+       <motion.div
+       initial={{scale:0}}
+       whileInView={{scale:1}}
+       transition={{duration:1}}
+        className='quote'>
         {<Typewriter words={['The best view comes after the hardest climb. Each step you take brings you closer to the summit. Embrace the journey, for it shapes who you become.']} />}
-       </div>
-      <div className='add-notes'>
+       </motion.div>
+      <motion.div
+         initial={{y:19,opacity:0}}
+         whileInView={{y:0,opacity:1}}
+         transition={{duration:1,delay:1}}
+       className='add-notes'>
         <button  onClick={()=>Navigate('/add/notes')}>Share Files</button>
-      </div>
+      </motion.div>
       </div>
         {/* <div className=''>
 

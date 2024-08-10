@@ -1,6 +1,6 @@
 .home-section{
     text-align: center;
-   
+   padding-top: 40px;
     
     height: 80vh;
     background-repeat: no-repeat;
@@ -30,6 +30,7 @@
     height: 54px;
     word-spacing: 14px;
     letter-spacing: 1px;
+    margin-bottom: 50px;
     color: white;
     /* font-family: system-ui; */
     font-weight: bold;
@@ -51,10 +52,11 @@
     cursor: pointer;
     font-size: 18px;
     border: none;
-    margin-top: 36px;
-    background: #4e4eff;
+    margin-top: 55px;
+    background: #0000008a;
     color: white;
-    border-radius: 25px;
+    border-radius: 7px;
+    box-shadow: -2px 1px 11px 1px;
 }
 
 .home-div{
