@@ -19,7 +19,7 @@
     width: 85%;
     height: 400px;
     justify-content: center;
-    margin: auto;
+   
    
     background-color: white;
     padding-bottom: 20px;
@@ -48,6 +48,7 @@
     color: white;
     border-radius: 5px 2px 9px 0px;
     font-size: 17px;
+    text-transform: capitalize;
 }
 
 @media screen and (min-width:600px){
@@ -56,12 +57,13 @@
     flex-wrap: wrap;
     padding-top: 40px;
     gap: 40px;
+    justify-content: space-around;
     }
     .feature{
-        width: 425px;
+        width: 365px;
     }
     .feature p{
-        font-size: 23px;
+        font-size: 22px;
     }
     .feature-container h2{
         padding-left: 58px;

@@ -1,4 +1,5 @@
-const API_KEY = 'AIzaSyCqPZ5yFsQIXcMRWCDY33Ft_rjl-19jDXQ';
+const api = import.meta.env.VITE_GEMINI_APIKEY
+const API_KEY = api;
 const BASE_URL = 'https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent';
 
 const googleGeminiService = {

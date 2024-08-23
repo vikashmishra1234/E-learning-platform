@@ -69,7 +69,7 @@ const ChatBot = () => {
                 <code className="language-javascript">{response}</code>
               </pre>
             ) : (
-              <div style={{marginTop:'35px',textAlign:'center'}}>
+              <div style={{ marginTop: "35px", textAlign: "center" }}>
                 Hello, I am your AI Assistant, How can i Help you.
               </div>
             )}

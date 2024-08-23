@@ -1,99 +1,110 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { deleteFiles, getUploadedFiles } from "../services/Api";
 import "./style.css";
-import { MdDelete } from "react-icons/md";
+import { MdDelete, MdBlock } from "react-icons/md";
 import { toast } from "react-toastify";
-import { MdBlock } from "react-icons/md";
-import Cookies from 'js-cookie'
+import Cookies from 'js-cookie';
 import { Link, useNavigate } from "react-router-dom";
-import men from '../../assets/men.jpg'
+import men from '../../assets/men.jpg';
 import { Loader } from "../Loader";
+import { useQuery } from '@tanstack/react-query';
 
 const Activity = () => {
-  const [files, setFiles] = useState("");
-  const [userName,setName] = useState('');
-  const Navigate = useNavigate();
-  const [loader,setLoader] = useState(false);
-  const getData = async () => {
-      setLoader(true)
-    const data = await getUploadedFiles();
-    setLoader(false)
-    if(data){
-      
-      setName(data.user.data.userName)
-      setFiles(data.uploadedFiles);
-    }
-  };
-  useEffect(() => {
-    getData();
-  }, []);
-  useEffect(()=>{
-    const token = Cookies.get("tokenStudentX");
-    if(!token){
-        Navigate('/auth');
-    }
-  },[])
-  const handleDelete = async (Id) => {
-    setLoader(true);
-     const res = await deleteFiles(Id);
-     setLoader(false)
-     if(!res){
-        toast.error("something went wrong");
-        return;
-     }
-      toast.success('File deleted successfully');
-      getData()
+  const navigate = useNavigate();
 
+  const [userName, setName] = React.useState('');
+  // Fetch uploaded files using useQuery
+  const { data, isLoading,isError } = useQuery({
+    queryKey: ['uploadedFiles'],
+    queryFn: getUploadedFiles,
+    enabled:true,
+    onSuccess: (data) => {
+      setName(data.user.data.userName);
+    },
+    onError: () => {
+      toast.error("Failed to fetch your activitis");
+    },
     
+  });
+
+  // Redirect if token is not found
+  React.useEffect(() => {
+    const token = Cookies.get("tokenStudentX");
+   
+    data&&setName(data.user.data.userName);
+    if (!token) {
+      navigate('/auth');
+    }
+  }, [navigate,data]);
+
+  // Handle file deletion
+  const handleDelete = async (Id) => {
+    try {
+      const res = await deleteFiles(Id);
+      if (!res) {
+        toast.error("Something went wrong");
+        return;
+      }
+      toast.success('File deleted successfully');
+    } catch (error) {
+      toast.error("Error deleting file");
+    }
   };
-  const handleLogout = ()=>{
-         Cookies.remove("tokenStudentX");
-         Navigate('/auth');
+
+  // Handle logout
+  const handleLogout = () => {
+    Cookies.remove("tokenStudentX");
+    navigate('/auth');
+  };
+
+  if (isLoading) {
+    return <Loader />;
   }
+ 
   return (
-    <>
-    {
-      !loader?<section className="activity-section">
+    <section className="activity-section">
+      <div>
         <div>
+          <img src={men} alt="" />
           <div>
-            <img src={men} alt="" />
+            <div>{userName}</div>
             <div>
-              <div>{userName}</div>
-              <div>
-                {" "}
-                <small>FilesUploaded: {files&&files.length}</small>
-              </div>
+              <small>Files Uploaded: {data?.uploadedFiles.length}</small>
             </div>
-          </div>
-          <div className="button-profile">
-            <button onClick={handleLogout}>LogOut</button>
           </div>
         </div>
-        {
-          files&&files.length>0?<h2 className="activity-heading">you shared the following files.</h2>
-          &&files.map(file=>(
+        <div className="button-profile">
+          <button onClick={handleLogout}>LogOut</button>
+        </div>
+      </div>
+      {
+        data?.uploadedFiles.length > 0 ? (
+          <>
+            <h2 className="activity-heading">You shared the following files.</h2>
+            {data.uploadedFiles.map(file => (
               <div key={file._id} className="activity-data">
-              <img
-                className="icon"
-                src="https://cdn-icons-png.flaticon.com/512/887/887997.png"
-                alt=""
-              />
-      
-              <div className="subjectName">{file.subjectName}
+                <img
+                  className="icon"
+                  src="https://cdn-icons-png.flaticon.com/512/887/887997.png"
+                  alt=""
+                />
+                <div className="subjectName">{file.subjectName}
                   <small>{file.code}</small>
+                </div>
+                <div>
+                  <MdDelete cursor={'pointer'} onClick={() => handleDelete(file._id)} size={30} />
+                </div>
               </div>
-              <div>
-                <MdDelete cursor={'pointer'} onClick={()=>handleDelete(file._id)} size={30} />
-              </div>
-            </div>
-          )):<div className="not-found">
-  <MdBlock/>
-      <small >you hav'nt upload any file. <Link to={'/add/notes'}>upload</Link> </small>
+            ))}
+          </>
+        ) : (
+          <div className="not-found">
+            <MdBlock />
+            <small>You haven't uploaded any files. <Link to={'/add/notes'}>Upload</Link></small>
           </div>
-        }
-      </section>:<Loader/>
+        )
       }
-      </>
+    </section>
   );
 };
 

@@ -22,10 +22,9 @@ const SignUpForm = ({ setShow }) => {
     },
     validationSchema: signUpValidate,
     onSubmit: async (values) => {
-      setLoader(true);
       let intYear = parseInt(values.studentYear)
       values.studentYear = intYear;
-      console.log(values)
+      setLoader(true);
       const res = await signUp(values);
       setLoader(false);
       if(res){
@@ -93,7 +92,7 @@ const SignUpForm = ({ setShow }) => {
           )}
         </div>
         <div className="form-group">
-          <label htmlFor="password">Phone Number:</label>
+          <label htmlFor="password">Set Password:</label>
           <input
             className="input"
             type="password"

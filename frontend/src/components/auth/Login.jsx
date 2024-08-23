@@ -3,14 +3,17 @@ import { login } from "../services/Api";
 import { Link, Navigate, useNavigate } from "react-router-dom";
 import Cookie from "js-cookie";
 import { toast } from "react-toastify";
+import { Loader } from "../Loader";
 
 const Login = ({ setShow }) => {
  const [formData,setFormData] = useState({});
+ const [loading,setLoading] = useState(false);
   const Navigate = useNavigate();
   const handleSubmit = async (e) => {
     e.preventDefault();
-  
+    setLoading(true)
     const res = await login(formData);
+    setLoading(false)
 
     if (res&&res.token) {
       toast.success(res.message)
@@ -24,6 +27,9 @@ const Login = ({ setShow }) => {
     setFormData({...formData,[e.target.name]:e.target.value})
 
   };
+  if(loading){
+   return <Loader/>
+  }
   return (
     <div className="signup-form-container">
       <h2>Student Login</h2>
@@ -52,9 +58,9 @@ const Login = ({ setShow }) => {
             required
           />
         </div>
-        <div>
+        {/* <div>
           <Link to={'/forgetpassword'} >forget password ?</Link>
-        </div>
+        </div> */}
         <button className="btn" type="submit">
           Login
         </button>
