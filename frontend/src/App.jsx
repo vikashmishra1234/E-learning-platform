@@ -13,10 +13,10 @@ import { lazy } from "react";
 import ChatBot from "./components/AiChatBot/ChatBot";
 import Wave from "react-wavify";
 import Footer from "./components/footer/Footer";
+import Activity from './components/Activity/Activity'
 
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 
-const Activity = lazy(() => import("./components/Activity/Activity"));
 
 function App() {
   const queryClient = new QueryClient();
@@ -39,9 +39,9 @@ function App() {
           exact
           path="/activity"
           element={
-            <Suspense fallback={<div>loading...</div>}>
-              <Activity />{" "}
-            </Suspense>
+          
+              <Activity />
+           
           }
         />
 

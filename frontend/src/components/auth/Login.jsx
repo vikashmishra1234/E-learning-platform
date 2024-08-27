@@ -16,10 +16,9 @@ const Login = ({ setShow }) => {
     setLoading(false)
 
     if (res&&res.token) {
+      
+      Cookie.set("tokenStudentX", res.token, { expires: 7 });
       toast.success(res.message)
-
-      Cookie.set("tokenStudentX", res.token,{ secure: true, sameSite: 'Strict' }, { expires: 7 });
-
       Navigate("/add/notes");
     }
   };
@@ -77,7 +76,7 @@ const Login = ({ setShow }) => {
             setShow(true);
           }}
         >
-          SignUp
+          dont'nt have an account?
         </button>
       </div>
     </div>

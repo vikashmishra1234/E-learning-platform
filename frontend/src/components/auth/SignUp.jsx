@@ -28,13 +28,13 @@ const SignUpForm = ({ setShow }) => {
       const res = await signUp(values);
       setLoader(false);
       if(res){
-        toast.success(res.message);
         Cookie.set("tokenStudentX", res.token, { 
           secure: true,
           
           sameSite: 'Strict',
           expires: 7 // 7 days from now
         });
+        toast.success(res.message);
         navigate("/add/notes");
       }
      
@@ -120,7 +120,7 @@ const SignUpForm = ({ setShow }) => {
           }}
           onClick={() => setShow(false)}
         >
-          Login
+          already have an account?
         </button>
       </div>
     </div>

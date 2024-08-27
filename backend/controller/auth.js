@@ -79,6 +79,7 @@ exports.signUp = async (req, res) => {
   }
 };
 
+
 exports.verifyToken = async (req, res, next) => {
   // Get the token from the request headers
 
@@ -86,6 +87,7 @@ exports.verifyToken = async (req, res, next) => {
     const authHeader = req.headers["authorization"];
 
     const token = authHeader && authHeader.split(" ")[1];
+  
 
     if (token == null) return res.sendStatus(401); // Unauthorized
 

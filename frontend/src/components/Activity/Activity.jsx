@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { deleteFiles, getUploadedFiles } from "../services/Api";
 import "./style.css";
 import { MdDelete, MdBlock } from "react-icons/md";
@@ -11,33 +11,30 @@ import { useQuery } from '@tanstack/react-query';
 
 const Activity = () => {
   const navigate = useNavigate();
+  const [userName, setName] = useState('');
 
-  const [userName, setName] = React.useState('');
-  // Fetch uploaded files using useQuery
-  const { data, isLoading,isError } = useQuery({
-    queryKey: ['uploadedFiles'],
-    queryFn: getUploadedFiles,
-    enabled:true,
-    onSuccess: (data) => {
-      setName(data.user.data.userName);
-    },
-    onError: () => {
-      toast.error("Failed to fetch your activitis");
-    },
-    
-  });
-
-  // Redirect if token is not found
+  // Redirect if token is missing
   React.useEffect(() => {
     const token = Cookies.get("tokenStudentX");
-   
-    data&&setName(data.user.data.userName);
     if (!token) {
       navigate('/auth');
     }
-  }, [navigate,data]);
+  }, [navigate]);
 
-  // Handle file deletion
+  // Use React Query to fetch data
+  const { data, isLoading, isError } = useQuery({
+    queryKey: ['uploadedFiles'],
+    queryFn: async () => {
+      const res = await getUploadedFiles();
+      if (res) {
+        setName(res.user.data.userName); // Set the username once the data is fetched
+        return res.uploadedFiles; // Assuming the files are in res.uploadedFiles
+      }
+    },
+    staleTime: 1000 * 60 * 5, // Cache data for 5 minutes
+    retry: 2, // Retry fetching the data 2 times in case of failure
+  });
+
   const handleDelete = async (Id) => {
     try {
       const res = await deleteFiles(Id);
@@ -46,30 +43,34 @@ const Activity = () => {
         return;
       }
       toast.success('File deleted successfully');
+      // React Query handles re-fetching or cache updates, so this could also be managed differently
     } catch (error) {
       toast.error("Error deleting file");
     }
   };
 
-  // Handle logout
   const handleLogout = () => {
     Cookies.remove("tokenStudentX");
     navigate('/auth');
   };
 
   if (isLoading) {
-    return <Loader />;
+    return <Loader />; // Show a loading indicator while fetching
   }
- 
+
+  if (isError) {
+    return <div>Error loading files.</div>; // Handle the error case
+  }
+
   return (
     <section className="activity-section">
       <div>
         <div>
-          <img src={men} alt="" />
+          <img src={men} alt="Profile" />
           <div>
             <div>{userName}</div>
             <div>
-              <small>Files Uploaded: {data?.uploadedFiles.length}</small>
+              <small>Files Uploaded: {data && data.length}</small>
             </div>
           </div>
         </div>
@@ -78,15 +79,15 @@ const Activity = () => {
         </div>
       </div>
       {
-        data?.uploadedFiles.length > 0 ? (
+        data && data.length > 0 ? (
           <>
             <h2 className="activity-heading">You shared the following files.</h2>
-            {data.uploadedFiles.map(file => (
+            {data.map(file => (
               <div key={file._id} className="activity-data">
                 <img
                   className="icon"
                   src="https://cdn-icons-png.flaticon.com/512/887/887997.png"
-                  alt=""
+                  alt="File Icon"
                 />
                 <div className="subjectName">{file.subjectName}
                   <small>{file.code}</small>
